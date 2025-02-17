@@ -82,11 +82,11 @@ const Navbar = ({ toggleSidebar }) => {
       case "/projects":
         return "!bg-blue-900";
       case "/tasks":
-        return "!bg-green-500";
+        return "!bg-green-600";
       case "/letters":
         return "!bg-orange-500";
       case "/notes": 
-        return "!bg-yellow-500";
+        return "!bg-yellow-600";
       default:
         return "!bg-gray-500";
     }

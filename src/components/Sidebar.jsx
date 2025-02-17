@@ -18,7 +18,7 @@ const Sidebar = () => {
             to={link.link}
           >
             <img height={20} width={20} src={link.iconPath} alt={link.title}/>
-            <span>{link.title}</span>
+            <span className="text-[15px]">{link.title}</span>
           </Link>
         ))}
       </div>
