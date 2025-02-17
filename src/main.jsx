@@ -4,9 +4,8 @@ import { ThemeProvider } from "@mui/material/styles";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import { theme, prefixer, stylisRTLPlugin } from "../src/theme/theme.js";
+import { BrowserRouter } from "react-router-dom";
 import "./index.css";
-
-
 
 // Create RTL cache
 const cacheRtl = createCache({
@@ -17,7 +16,9 @@ const cacheRtl = createCache({
 createRoot(document.getElementById("root")).render(
   <CacheProvider value={cacheRtl}>
     <ThemeProvider theme={theme}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </ThemeProvider>
   </CacheProvider>
 );

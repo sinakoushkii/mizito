@@ -1,14 +1,23 @@
 import React from "react";
-import { Button, Typography } from "@mui/material";
+import { Routes, Route, Link } from "react-router-dom";
+import About from "./pages/About";
+import Home from "./pages/Home";
+import Sidebar from "./components/Sidebar";
+import Navbar from "./components/Navbar";
 
 const App = () => {
   return (
     <div>
-    <h1 className="text-3xl underline">این یک میز کار است</h1>
-    <Typography variant="h4">سلام، خوش آمدید!</Typography>
-      <Button variant="contained" color="primary">
-        کلیک کنید
-      </Button>
+      <div className="w-full h-screen">
+        <Navbar />
+        <div className="flex flex-row-reverse items-center justify-end w-full h-full">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+          </Routes>
+          <Sidebar />
+        </div>
+      </div>
     </div>
   );
 };
