@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -62,12 +62,21 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const Navbar = ({ toggleSidebar }) => {
+const Navbar = ({ toggleSidebar,setNavbarHeight }) => {
   const location = useLocation(); // Get the current location (route)
 
   // State initialization
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const navbarRef = useRef(null);
+
+  useEffect(() => {
+    console.log("test");
+    if (navbarRef.current) {
+      console.log(navbarRef.current.offsetHeight);
+      setNavbarHeight(navbarRef.current.offsetHeight);
+    }
+  }, []);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -85,7 +94,7 @@ const Navbar = ({ toggleSidebar }) => {
         return "!bg-green-600";
       case "/letters":
         return "!bg-orange-500";
-      case "/notes": 
+      case "/notes":
         return "!bg-yellow-600";
       default:
         return "!bg-gray-500";
@@ -185,97 +194,99 @@ const Navbar = ({ toggleSidebar }) => {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar
-        position="static"
-        className={`underline ${getNavbarBackground()}`}
-      >
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-            onClick={toggleSidebar}
-          >
-            <MenuIcon />
-          </IconButton>
-
-          {/* mizito */}
-          <h2 className="text-2xl font-bold">
-            <Link to="/" className="text-white !no-underline inline-block">
-              میزیتو
-            </Link>
-          </h2>
-
-          <Box sx={{ flexGrow: 1 }} />
-
-          <Search className="hidden sm:block">
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            {/* help icon */}
+    <div className="fixed top-0 right-0 left-0 z-30" ref={navbarRef}>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar
+          position="static"
+          className={`underline ${getNavbarBackground()}`}
+        >
+          <Toolbar>
             <IconButton
               size="large"
-              aria-label="show 4 new mails"
+              edge="start"
               color="inherit"
+              aria-label="open drawer"
+              sx={{ mr: 2 }}
+              onClick={toggleSidebar}
             >
-              <Badge>
-                <HelpIcon />
-              </Badge>
+              <MenuIcon />
             </IconButton>
-            {/* chat icon */}
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge>
-                <ForumIcon className="text-white" />
-              </Badge>
-            </IconButton>
-            {/* bookmark icon */}
-            <IconButton>
-              <BookmarkIcon className="text-white" />
-            </IconButton>
-            {/* account icon */}
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </Box>
 
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
-        </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
-    </Box>
+            {/* mizito */}
+            <h2 className="text-2xl font-bold">
+              <Link to="/" className="text-white !no-underline inline-block">
+                میزیتو
+              </Link>
+            </h2>
+
+            <Box sx={{ flexGrow: 1 }} />
+
+            <Search className="hidden sm:block">
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+              />
+            </Search>
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              {/* help icon */}
+              <IconButton
+                size="large"
+                aria-label="show 4 new mails"
+                color="inherit"
+              >
+                <Badge>
+                  <HelpIcon />
+                </Badge>
+              </IconButton>
+              {/* chat icon */}
+              <IconButton
+                size="large"
+                aria-label="show 17 new notifications"
+                color="inherit"
+              >
+                <Badge>
+                  <ForumIcon className="text-white" />
+                </Badge>
+              </IconButton>
+              {/* bookmark icon */}
+              <IconButton>
+                <BookmarkIcon className="text-white" />
+              </IconButton>
+              {/* account icon */}
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            </Box>
+
+            <Box sx={{ display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
+            </Box>
+          </Toolbar>
+        </AppBar>
+        {renderMobileMenu}
+        {renderMenu}
+      </Box>
+    </div>
   );
 };
 
