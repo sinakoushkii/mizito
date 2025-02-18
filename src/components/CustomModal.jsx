@@ -4,7 +4,6 @@ import Modal from "@mui/material/Modal";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
 import { Typography } from "@mui/material";
-import { padding } from "@mui/system";
 
 const style = {
   position: "absolute",

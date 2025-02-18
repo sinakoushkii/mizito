@@ -215,7 +215,7 @@ const Navbar = ({ toggleSidebar,setNavbarHeight }) => {
             {/* mizito */}
             <h2 className="text-2xl font-bold">
               <Link to="/" className="text-white !no-underline inline-block">
-                میزیتو
+                  ایریسا پرو
               </Link>
             </h2>
 
