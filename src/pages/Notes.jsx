@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const Notes = () => {
   const [isFocused, setIsFocused] = useState(false);
@@ -9,7 +11,18 @@ const Notes = () => {
     caption: "",
     background: "white",
   });
-  //   const [noteBackground, setNoteBackground] = useState("");
+  const [notes, setNotes] = useState([]); // State to store notes
+
+  // Load notes from localStorage when component mounts
+  useEffect(() => {
+    const savedNotes = JSON.parse(localStorage.getItem("notes")) || [];
+    setNotes(savedNotes);
+  }, []);
+
+  // Save notes to localStorage whenever notes array changes
+  useEffect(() => {
+    localStorage.setItem("notes", JSON.stringify(notes));
+  }, [notes]);
 
   const noteBackgroundColors = [
     "white",
@@ -38,14 +51,25 @@ const Notes = () => {
 
   const noteSubmitHandler = (event) => {
     event.preventDefault();
-    console.log(note);
+
+    const updatedNotes = [...notes, note];
+    setNotes(updatedNotes);
+    setNote({ title: "", caption: "", background: "white" });
+  };
+
+  //Remove note function
+  const deleteNoteHandler = (index) => {
+    const updatedNotes = notes.filter((_, i) => i !== index); // Remove clicked note
+    setNotes(updatedNotes);
   };
 
   return (
-    <div className="border-2 border-black w-full h-full mt-32">
+    <div className="w-full h-full mt-32 px-4 pb-8 overflow-auto">
       <div
         style={{ backgroundColor: note.background ? note.background : "white" }}
-        className={`flex flex-col items-center justify-start mx-auto border max-w-[700px] mt-12 shadow-lg rounded-lg transition-all duration-300 h-16 focus-within:min-h-[320px]  ${isFocused ? "h-[320px]" : "h-16"} overflow-hidden `}
+        className={`flex flex-col items-center justify-start mx-auto border max-w-[700px] mt-12 shadow-lg rounded-lg transition-all duration-300 h-16 focus-within:min-h-[320px]  ${
+          isFocused ? "h-[360px]" : "h-16"
+        } overflow-hidden `}
         onFocus={() => setIsFocused(true)} // 🔹 Expand when input is focused
         onBlur={(e) => {
           // 🔹 Collapse only if focus moves outside the container
@@ -100,10 +124,32 @@ const Notes = () => {
             variant="contained"
             color="primary"
             onClick={noteSubmitHandler}
+            sx={{marginTop:"2rem"}}
           >
             ایجاد
           </Button>
         </div>
+      </div>
+      {/* Render Notes */}
+      <div className="mt-6 flex flex-wrap gap-4 justify-center">
+        {notes.map((n, index) => (
+          <div
+            key={index}
+            style={{ backgroundColor: n.background }}
+            className="relative border rounded-lg shadow-md p-4 w-[250px] h-max"
+          >
+            <h3 className="text-lg font-semibold mb-3">{n.title}</h3>
+            <p className="text-sm text-gray-700">{n.caption}</p>
+            {/* Delete Button */}
+            <IconButton
+              onClick={() => deleteNoteHandler(index)}
+              size="small"
+              sx={{ color: "black",marginTop:"1rem" }}
+            >
+              <DeleteIcon />
+            </IconButton>
+          </div>
+        ))}
       </div>
     </div>
   );
