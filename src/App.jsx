@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import Notes from "./pages/Notes";
+import Projects from "./pages/Projects";
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -45,6 +46,7 @@ const App = () => {
             <Route path="/" element={<Home marginTop={navbarHeight} />} />
             <Route path="/about" element={<About />} />
             <Route path="/notes" element={<Notes />} />
+            <Route path="/projects" element={<Projects />} />
           </Routes>
           {isSidebarOpen && (
             <Sidebar

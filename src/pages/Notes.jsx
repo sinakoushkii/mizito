@@ -51,14 +51,15 @@ const Notes = () => {
 
   const noteSubmitHandler = (event) => {
     event.preventDefault();
-
     const updatedNotes = [...notes, note];
     setNotes(updatedNotes);
     setNote({ title: "", caption: "", background: "white" });
+    
   };
 
   //Remove note function
   const deleteNoteHandler = (index) => {
+    setIsFocused(false)
     const updatedNotes = notes.filter((_, i) => i !== index); // Remove clicked note
     setNotes(updatedNotes);
   };
@@ -68,7 +69,7 @@ const Notes = () => {
       <div
         style={{ backgroundColor: note.background ? note.background : "white" }}
         className={`flex flex-col items-center justify-start mx-auto border max-w-[700px] mt-12 shadow-lg rounded-lg transition-all duration-300 h-16 focus-within:min-h-[320px]  ${
-          isFocused ? "h-[360px]" : "h-16"
+          isFocused ? "h-[360px]" : "h-[64px]"
         } overflow-hidden `}
         onFocus={() => setIsFocused(true)} // 🔹 Expand when input is focused
         onBlur={(e) => {
