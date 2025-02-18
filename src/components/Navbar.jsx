@@ -71,9 +71,7 @@ const Navbar = ({ toggleSidebar,setNavbarHeight }) => {
   const navbarRef = useRef(null);
 
   useEffect(() => {
-    console.log("test");
     if (navbarRef.current) {
-      console.log(navbarRef.current.offsetHeight);
       setNavbarHeight(navbarRef.current.offsetHeight);
     }
   }, []);
