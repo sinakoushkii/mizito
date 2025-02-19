@@ -1,22 +1,10 @@
-import React, { useState,useEffect } from "react";
+import React, { useContext } from "react";
 import TaskWrapper from "../components/TaskWrapper";
+import { TaskContext } from "../context/TaskContext";
 
 const Projects = () => {
-  const [allTasks, setAllTasks] = useState([]);
 
-
-  // Load tasks from localStorage when the component mounts
-  useEffect(() => {
-    const savedTasks = localStorage.getItem("tasks");
-    if (savedTasks) {
-      setAllTasks(JSON.parse(savedTasks));
-    }
-  }, []);
-
-  // Save tasks to localStorage whenever allTasks changes
-  useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(allTasks));
-  }, [allTasks]);
+  const { allTasks, setAllTasks } = useContext(TaskContext);
 
   return (
     <div className="w-full h-full mt-32 px-4 pb-8 overflow-auto">

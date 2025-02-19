@@ -1,5 +1,6 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route, Link } from "react-router-dom";
+import TaskProvider from "./context/TaskContext.jsx";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Sidebar from "./components/Sidebar";
@@ -28,35 +29,37 @@ const App = () => {
 
   return (
     <div>
-      <div className="w-full h-screen">
-        <Navbar
-          toggleSidebar={toggleSidebar}
-          setNavbarHeight={setNavbarHeight}
-        />
-        {/* Overlay Background */}
-        {isSidebarOpen && (
-          <div
-            className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm md:hidden z-10"
-            onClick={() => setIsSidebarOpen(false)}
+      <TaskProvider>
+        <div className="w-full h-screen">
+          <Navbar
+            toggleSidebar={toggleSidebar}
+            setNavbarHeight={setNavbarHeight}
           />
-        )}
-
-        <div className="flex flex-row-reverse items-center justify-end w-full h-full">
-          <Routes>
-            <Route path="/" element={<Home marginTop={navbarHeight} />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/notes" element={<Notes />} />
-            <Route path="/projects" element={<Projects />} />
-          </Routes>
+          {/* Overlay Background */}
           {isSidebarOpen && (
-            <Sidebar
-              setIsSidebarOpen={setIsSidebarOpen}
-              isSidebarOpen={isSidebarOpen}
-              navbarHeight={navbarHeight}
+            <div
+              className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm md:hidden z-10"
+              onClick={() => setIsSidebarOpen(false)}
             />
           )}
+
+          <div className="flex flex-row-reverse items-center justify-end w-full h-full">
+            <Routes>
+              <Route path="/" element={<Home marginTop={navbarHeight} />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/notes" element={<Notes />} />
+              <Route path="/projects" element={<Projects />} />
+            </Routes>
+            {isSidebarOpen && (
+              <Sidebar
+                setIsSidebarOpen={setIsSidebarOpen}
+                isSidebarOpen={isSidebarOpen}
+                navbarHeight={navbarHeight}
+              />
+            )}
+          </div>
         </div>
-      </div>
+      </TaskProvider>
     </div>
   );
 };
