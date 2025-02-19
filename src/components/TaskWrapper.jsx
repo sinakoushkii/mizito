@@ -5,23 +5,17 @@ import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
 
-
 const TaskWrapper = ({
   backgroundColor,
   title,
   category,
-  allTasks,
   setAllTasks,
+  allTasks,
 }) => {
   const [openModal, setOpenModal] = useState(false);
   const [showError, setShowError] = useState(false);
   const [taskTitle, setTaskTitle] = useState("");
-  
-  
 
-  useEffect(() => {
-    console.log("Updated allTasks:", allTasks);
-  }, [allTasks]);
 
   // Filter tasks belonging to this category
   const filteredTasks = allTasks.filter((task) => task.category === category);
