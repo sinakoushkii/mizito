@@ -9,7 +9,7 @@ import Notes from "./pages/Notes";
 import Projects from "./pages/Projects";
 
 const App = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [navbarHeight, setNavbarHeight] = useState(0);
 
   // Auto-close on small screens, auto-open on large screens
