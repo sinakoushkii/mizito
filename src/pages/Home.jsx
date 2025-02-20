@@ -15,6 +15,7 @@ const Home = () => {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
   const { allTasks, setAllTasks } = useContext(TaskContext);
+  const filteredTask = allTasks.filter((task) => task.category !== "done");
 
   return (
     <div className="w-full h-screen px-6 py-4 mt-32">
@@ -82,17 +83,29 @@ const Home = () => {
             <div className="w-full border rounded-t-xl grow min-h-[300px]">
               <div className="text-center bg-green-600 rounded-t-xl py-1 w-full">
                 <span className="text-center text-[14px] text-white">
-                  کارهای من ({toPersianNumber(3)})
+                  کارهای من ({toPersianNumber(filteredTask.length)})
                 </span>
               </div>
-              {allTasks.map((task) => {
-                return (
-                  <div className="flex items-center gap-1 border border-r-0 border-l-0 w-full px-2 py-0">
-                    <Checkbox sx={{ '& .MuiSvgIcon-root': { fontSize: 20 } }} {...label} />
-                    <p className="text-[14px]">{task.task}</p>
-                  </div>
-                );
-              })}
+              {filteredTask.length > 0 ? (
+                filteredTask.map((task) => {
+                  return (
+                    <div
+                      key={task.task}
+                      className="flex items-center gap-1 border border-r-0 border-l-0 w-full px-2 py-0"
+                    >
+                      <Checkbox
+                        sx={{ "& .MuiSvgIcon-root": { fontSize: 20 } }}
+                        {...label}
+                      />
+                      <p className="text-[14px]">{task.task}</p>
+                    </div>
+                  );
+                })
+              ) : (
+                <p className="text-gray-500 text-center my-4">
+                  تسکی برای انجام ندارید
+                </p>
+              )}
             </div>
             {/* others work  */}
             <div className="w-full border rounded-t-xl grow min-h-[300px]">
@@ -101,7 +114,9 @@ const Home = () => {
                   پیگیری از دیگران ({toPersianNumber(0)})
                 </span>
               </div>
-              <p className="text-gray-500 text-center my-4">کاری برای پیگیری ندارید</p>
+              <p className="text-gray-500 text-center my-4">
+                کاری برای پیگیری ندارید
+              </p>
             </div>
           </div>
         </div>

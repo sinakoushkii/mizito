@@ -9,7 +9,7 @@ import CustomDragLayer from "../components/CustomDragLayer";
 
 const Projects = () => {
   const { allTasks, setAllTasks } = useContext(TaskContext);
-
+  
   const isTouchDevice = () => {
     return "ontouchstart" in window || navigator.maxTouchPoints > 0;
   };
