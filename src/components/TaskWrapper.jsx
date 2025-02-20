@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import CustomModal from "./CustomModal";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -17,7 +17,9 @@ const TaskWrapper = ({
   const [taskTitle, setTaskTitle] = useState("");
 
   const [draggedTask, setDraggedTask] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
   const [touchPosition, setTouchPosition] = useState({ x: 0, y: 0 });
+  const longPressTimeout = useRef(null);
 
   // Filter tasks belonging to this category
   const filteredTasks = allTasks.filter((task) => task.category === category);
@@ -40,41 +42,54 @@ const TaskWrapper = ({
     );
   };
 
-  // Handle Touch Start (Mobile)
+  // Handle Long Press Start (Mobile)
   const handleTouchStart = (event, task) => {
-    setDraggedTask(task);
-    setTouchPosition({
-      x: event.touches[0].clientX,
-      y: event.touches[0].clientY,
-    });
+    longPressTimeout.current = setTimeout(() => {
+      setDraggedTask(task);
+      setIsDragging(true);
+      setTouchPosition({
+        x: event.touches[0].clientX,
+        y: event.touches[0].clientY,
+      });
+    }, 500); // Long press duration
   };
 
   // Handle Touch Move (Mobile)
   const handleTouchMove = (event) => {
-    setTouchPosition({
-      x: event.touches[0].clientX,
-      y: event.touches[0].clientY,
-    });
+    if (isDragging) {
+      setTouchPosition({
+        x: event.touches[0].clientX,
+        y: event.touches[0].clientY,
+      });
+    }
   };
 
-  // Handle Touch End (Mobile)
-  const handleTouchEnd = (event) => {
-    const element = document.elementFromPoint(touchPosition.x, touchPosition.y);
+   // Handle Touch End (Mobile)
+   const handleTouchEnd = (event) => {
+    clearTimeout(longPressTimeout.current);
 
-    if (element && element.getAttribute("data-category")) {
-      const newCategory = element.getAttribute("data-category");
-
-      // Update task category
-      setAllTasks((prevTasks) =>
-        prevTasks.map((task) =>
-          task.task === draggedTask.task
-            ? { ...task, category: newCategory }
-            : task
-        )
+    if (isDragging) {
+      const element = document.elementFromPoint(
+        touchPosition.x,
+        touchPosition.y
       );
-    }
 
-    setDraggedTask(null);
+      if (element && element.getAttribute("data-category")) {
+        const newCategory = element.getAttribute("data-category");
+
+        // Update task category
+        setAllTasks((prevTasks) =>
+          prevTasks.map((task) =>
+            task.task === draggedTask.task
+              ? { ...task, category: newCategory }
+              : task
+          )
+        );
+      }
+
+      setDraggedTask(null);
+      setIsDragging(false);
+    }
   };
 
   const openModalHandler = (event) => {
@@ -134,7 +149,7 @@ const TaskWrapper = ({
             <div
               key={task.task}
               className="flex items-center justify-between bg-white text-black px-2 py-2 rounded-md mt-2 cursor-pointer w-full"
-              draggable
+              draggable={true}
               onDragStart={(event) => handleDragStart(event, task)}
               onTouchStart={(event) => handleTouchStart(event, task)} // Mobile Start
               onTouchMove={handleTouchMove} // Mobile Move
