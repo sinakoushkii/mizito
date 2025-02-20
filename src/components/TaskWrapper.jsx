@@ -5,6 +5,10 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
+import { getEmptyImage } from "react-dnd-html5-backend";
+
+
+
 
 const ItemTypes = {
   TASK: "task",
@@ -42,7 +46,7 @@ const TaskWrapper = ({
 
   // Task Item Component
   const TaskItem = ({ task }) => {
-    const [{ isDragging }, drag] = useDrag({
+    const [{ isDragging }, drag, preview] = useDrag({
       type: ItemTypes.TASK,
       item: task,
       collect: (monitor) => ({
@@ -50,22 +54,19 @@ const TaskWrapper = ({
       }),
     });
 
-    useEffect(() => {
-      if (isDragging) {
-        document.body.style.cursor = "grabbing";
-      } else {
-        document.body.style.cursor = "default";
-      }
-    }, [isDragging]);
+    // Hide default drag preview
+    React.useEffect(() => {
+      preview(getEmptyImage(), { captureDraggingState: true });
+    }, [preview]);
 
     const dragStyles = {
-      opacity: isDragging ? 0.7 : 1, // Make dragging item semi-transparent
+      opacity: isDragging ? 0 : 1, // Hide original item while dragging
       cursor: isDragging ? "grabbing" : "pointer",
     };
 
     return (
       <div
-        ref={drag} // Make the task draggable
+        ref={drag}
         style={dragStyles}
         className="flex items-center justify-between bg-white text-black px-2 py-2 rounded-md mt-2 cursor-pointer w-full"
       >
@@ -135,9 +136,7 @@ const TaskWrapper = ({
       </div>
       <div className="flex flex-col justify-center items-center gap-1 w-full">
         {filteredTasks.length > 0 &&
-          filteredTasks.map((task) => (
-            <TaskItem key={task.task} task={task} />
-          ))}
+          filteredTasks.map((task) => <TaskItem key={task.task} task={task} />)}
       </div>
       {openModal && (
         <CustomModal
