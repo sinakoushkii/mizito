@@ -8,7 +8,7 @@ const Projects = () => {
 
   return (
     <div className="w-full h-full mt-32 px-4 pb-8 overflow-auto">
-      <div className="flex center justify-start gap-4 mt-6">
+      <div className="flex flex-col justify-center items-center md:flex-row center md:justify-start gap-4 mt-6">
         <TaskWrapper
           title="برای انجام"
           category="todo"

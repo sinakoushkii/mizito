@@ -16,7 +16,6 @@ const TaskWrapper = ({
   const [showError, setShowError] = useState(false);
   const [taskTitle, setTaskTitle] = useState("");
 
-
   // Filter tasks belonging to this category
   const filteredTasks = allTasks.filter((task) => task.category === category);
 
@@ -71,7 +70,7 @@ const TaskWrapper = ({
   return (
     <div
       style={{ backgroundColor: backgroundColor, opacity: "70%" }}
-      className="h-[300px] w-[300px] bg-opacity-70 rounded-md px-3 py-3 overflow-auto"
+      className="h-[300px] w-full max-w-[300px] bg-opacity-70 rounded-md px-3 py-3 overflow-auto"
       onDragOver={(e) => e.preventDefault()} // Allow dropping
       onDrop={handleDrop} // Handle drop event
     >
@@ -93,6 +92,7 @@ const TaskWrapper = ({
         {filteredTasks.length > 0 &&
           filteredTasks.map((task) => (
             <div
+              key={task.task}
               className="flex items-center justify-between bg-white text-black px-2 py-2 rounded-md mt-2 cursor-pointer w-full"
               draggable
               onDragStart={(event) => handleDragStart(event, task)}
@@ -111,6 +111,7 @@ const TaskWrapper = ({
           closeModal={closeModalHandler}
         >
           <TextField
+            autoFocus
             sx={{ marginTop: "1rem" }}
             required
             id="outlined-basic"

@@ -7,7 +7,7 @@ import Badge from "@mui/material/Badge";
 const Sidebar = ({ isSidebarOpen, navbarHeight }) => {
   const location = useLocation();
   const { allTasks } = useContext(TaskContext);
-  console.log(allTasks.length);
+
 
   return (
     <div
