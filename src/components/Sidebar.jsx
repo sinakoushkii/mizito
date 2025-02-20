@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { sidebarLinks } from "../data";
+import { sidebarLinks, toPersianNumber } from "../data";
 import { TaskContext } from "../context/TaskContext";
 import Badge from "@mui/material/Badge";
 
@@ -25,11 +25,11 @@ const Sidebar = ({ isSidebarOpen, navbarHeight }) => {
             to={link.link}
           >
             <img height={20} width={20} src={link.iconPath} alt={link.title} />
-            <span className="text-[15px] ml-2">{link.title}</span>
+            <span className="text-[15px] ml-3">{link.title}</span>
        
             {link.title === "پروژه ها" && (
               <Badge
-                badgeContent={allTasks.length}
+                badgeContent={toPersianNumber(allTasks.length)}
                 color="primary"
               ></Badge>
             )}

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Button, Typography } from "@mui/material";
+import { Badge, Button, Typography } from "@mui/material";
 import CustomModal from "../components/CustomModal";
 import supportIcon from "../assets/icons/blackChat.png";
 import textIcon from "../assets/icons/text.png";
+import { timeTable, toPersianNumber } from "../data";
 
 const Home = () => {
   const [open, setOpen] = useState(false);
@@ -33,6 +34,21 @@ const Home = () => {
               </span>
             </div>
           </div>
+          <div className="flex items-center justify-start gap-5 border-2 border-black">
+            {timeTable.map((task) => {
+              return (
+                <div key={task.id} className="flex flex-col items-center justify-center gap-5 rounded-lg border px-6 py-2 w-[120px] h-[150px] text-center">
+                  <img src={task.iconPath} width={20} height={20} />
+                  <p className="text-[12px]">{task.title}</p>
+                  <Badge
+                    badgeContent={toPersianNumber(task.count)}
+                    color="primary"
+                  ></Badge>
+                </div>
+              );
+            })}
+          </div>
+          {/* <div className="border-2 border-black w-[300px] mt-6"></div> */}
         </div>
       </div>
       <CustomModal title="تست مدال" open={open} closeModal={handleClose}>

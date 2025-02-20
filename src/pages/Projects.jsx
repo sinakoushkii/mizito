@@ -22,21 +22,21 @@ const Projects = () => {
           <TaskWrapper
             title="برای انجام"
             category="todo"
-            backgroundColor="#0a3d62"
+            backgroundColor="#2C3A47"
             allTasks={allTasks}
             setAllTasks={setAllTasks}
           />
           <TaskWrapper
             title="در حال انجام"
             category="doing"
-            backgroundColor="#f72fb1"
+            backgroundColor="#0a3d62"
             allTasks={allTasks}
             setAllTasks={setAllTasks}
           />
           <TaskWrapper
             title="انجام شده"
             category="done"
-            backgroundColor="#01a3a4"
+            backgroundColor="#006266"
             allTasks={allTasks}
             setAllTasks={setAllTasks}
           />

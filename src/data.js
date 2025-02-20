@@ -4,7 +4,15 @@ import projects from './assets/icons/projects.png'
 import chat from './assets/icons/chat.png'
 import letters from './assets/icons/letters.png'
 import notes from './assets/icons/notes.png'
+import timer from './assets/icons/timer.png'
+import seen from './assets/icons/seen.png'
+import calendar from './assets/icons/calendar.png'
 
+
+export const toPersianNumber = (number) => {
+  const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+  return number.toString().replace(/\d/g, (digit) => persianDigits[digit]);
+};
 
 export const sidebarLinks = [
   {
@@ -44,3 +52,29 @@ export const sidebarLinks = [
     iconPath:notes,
   },
 ];
+
+export const timeTable=[
+  {
+    id:"1",
+    title:"کار های امروز من",
+    count:"2",
+    iconPath:seen,
+    color:"green",
+  },
+  {
+    id:"2",
+    title:"کارهای دارای تاخیر",
+    count:"0",
+    iconPath:calendar,
+    color:"orange",
+  },
+  {
+    id:"3",
+    title:"کارهای قابل پیگیری",
+    count:"1",
+    iconPath:timer,
+    color:"blue",
+  }
+]
+
+export const colleagues=[]
