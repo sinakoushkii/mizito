@@ -34,10 +34,10 @@ const Home = () => {
               </span>
             </div>
           </div>
-          <div className="flex items-center justify-start gap-5 border-2 border-black">
+          <div className="flex items-center justify-start gap-5">
             {timeTable.map((task) => {
               return (
-                <div key={task.id} className="flex flex-col items-center justify-center gap-5 rounded-lg border px-6 py-2 w-[120px] h-[150px] text-center">
+                <div key={task.id} className="flex flex-col items-center justify-center gap-5 rounded-lg border px-2 sm:px-6 py-2 w-[90px] sm:w-[120px] h-[150px] text-center">
                   <img src={task.iconPath} width={20} height={20} />
                   <p className="text-[12px]">{task.title}</p>
                   <Badge
