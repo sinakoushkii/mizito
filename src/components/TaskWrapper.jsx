@@ -16,6 +16,9 @@ const TaskWrapper = ({
   const [showError, setShowError] = useState(false);
   const [taskTitle, setTaskTitle] = useState("");
 
+  const [draggedTask, setDraggedTask] = useState(null);
+  const [touchPosition, setTouchPosition] = useState({ x: 0, y: 0 });
+
   // Filter tasks belonging to this category
   const filteredTasks = allTasks.filter((task) => task.category === category);
 
@@ -35,6 +38,43 @@ const TaskWrapper = ({
         task.task === droppedTask.task ? { ...task, category } : task
       )
     );
+  };
+
+  // Handle Touch Start (Mobile)
+  const handleTouchStart = (event, task) => {
+    setDraggedTask(task);
+    setTouchPosition({
+      x: event.touches[0].clientX,
+      y: event.touches[0].clientY,
+    });
+  };
+
+  // Handle Touch Move (Mobile)
+  const handleTouchMove = (event) => {
+    setTouchPosition({
+      x: event.touches[0].clientX,
+      y: event.touches[0].clientY,
+    });
+  };
+
+  // Handle Touch End (Mobile)
+  const handleTouchEnd = (event) => {
+    const element = document.elementFromPoint(touchPosition.x, touchPosition.y);
+
+    if (element && element.getAttribute("data-category")) {
+      const newCategory = element.getAttribute("data-category");
+
+      // Update task category
+      setAllTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.task === draggedTask.task
+            ? { ...task, category: newCategory }
+            : task
+        )
+      );
+    }
+
+    setDraggedTask(null);
   };
 
   const openModalHandler = (event) => {
@@ -96,6 +136,9 @@ const TaskWrapper = ({
               className="flex items-center justify-between bg-white text-black px-2 py-2 rounded-md mt-2 cursor-pointer w-full"
               draggable
               onDragStart={(event) => handleDragStart(event, task)}
+              onTouchStart={(event) => handleTouchStart(event, task)} // Mobile Start
+              onTouchMove={handleTouchMove} // Mobile Move
+              onTouchEnd={handleTouchEnd} // Mobile End
             >
               {task.task}
               <IconButton onClick={() => deleteTaskHandler(task.task)}>
