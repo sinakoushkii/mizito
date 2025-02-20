@@ -7,6 +7,10 @@ import notes from './assets/icons/notes.png'
 import timer from './assets/icons/timer.png'
 import seen from './assets/icons/seen.png'
 import calendar from './assets/icons/calendar.png'
+import profile1 from './assets/icons/profile1.jpeg'
+import profile2 from './assets/icons/profile2.jpeg'
+import profile3 from './assets/icons/profile3.jpeg'
+import profile4 from './assets/icons/profile4.jpeg'
 
 
 export const toPersianNumber = (number) => {
@@ -77,4 +81,25 @@ export const timeTable=[
   }
 ]
 
-export const colleagues=[]
+export const colleagues=[
+  {
+    id:"1",
+    name:"رضا بهرامی",
+    profilePath:profile1,
+  },
+  {
+    id:"2",
+    name:"جواد هاشمی",
+    profilePath:profile2,
+  },
+  {
+    id:"3",
+    name:"حامد لک",
+    profilePath:profile3,
+  },
+  {
+    id:"4",
+    name:"مهناز افشار",
+    profilePath:profile4,
+  },
+]
