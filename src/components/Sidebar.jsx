@@ -13,7 +13,7 @@ const Sidebar = ({ isSidebarOpen, navbarHeight }) => {
     <div
       className={`mt-28 sm:mt-32 fixed top-[${navbarHeight}] right-0 ${
         isSidebarOpen ? "translate-x-0" : "translate-x-full"
-      } h-full bg-white md:static md:block shadow-xl border w-[270px] px-4 py-2 transform transition-transform duration-300 z-20`}
+      } h-screen bg-white md:static md:block shadow-xl border w-[270px] px-4 py-2 transform transition-transform duration-300 z-20`}
     >
       <div className="flex flex-col items-start justify-center gap-2">
         {sidebarLinks.map((link) => (
