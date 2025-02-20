@@ -115,7 +115,7 @@ const TaskWrapper = ({
       ref={drop} // Make the category droppable
       style={{
         backgroundColor: isOver ? "#f0f0f0" : backgroundColor, // Change background on hover
-        opacity: "70%",
+        // opacity: "70%",
         transition: "background-color 0.3s ease", // Smooth transition
       }}
       className="h-[300px] w-full max-w-[300px] bg-opacity-70 rounded-md px-3 py-3 overflow-auto"
