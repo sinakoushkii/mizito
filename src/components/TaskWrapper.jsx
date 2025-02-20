@@ -1,5 +1,4 @@
-import React, { useState, useRef } from "react";
-
+import React, { useState, useEffect } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import CustomModal from "./CustomModal";
 import TextField from "@mui/material/TextField";
@@ -25,37 +24,50 @@ const TaskWrapper = ({
   // Filter tasks belonging to this category
   const filteredTasks = allTasks.filter((task) => task.category === category);
 
-  // Droppable area for this category
+  // Drop logic for the task wrapper
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.TASK,
-    drop: (item) => {
+    drop: (droppedTask) => {
+      // Update task category on drop
       setAllTasks((prevTasks) =>
         prevTasks.map((task) =>
-          task.task === item.task ? { ...task, category } : task
+          task.task === droppedTask.task ? { ...task, category } : task
         )
       );
     },
     collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
+      isOver: monitor.isOver(),
     }),
   });
 
-  // Drag and Drop for each Task
+  // Task Item Component
   const TaskItem = ({ task }) => {
     const [{ isDragging }, drag] = useDrag({
       type: ItemTypes.TASK,
-      item: { ...task },
+      item: task,
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
     });
 
+    useEffect(() => {
+      if (isDragging) {
+        document.body.style.cursor = "grabbing";
+      } else {
+        document.body.style.cursor = "default";
+      }
+    }, [isDragging]);
+
+    const dragStyles = {
+      opacity: isDragging ? 0.7 : 1, // Make dragging item semi-transparent
+      cursor: isDragging ? "grabbing" : "pointer",
+    };
+
     return (
       <div
-        ref={drag}
-        className={`flex items-center justify-between bg-white text-black px-2 py-2 rounded-md mt-2 cursor-pointer w-full ${
-          isDragging ? "opacity-50" : "opacity-100"
-        }`}
+        ref={drag} // Make the task draggable
+        style={dragStyles}
+        className="flex items-center justify-between bg-white text-black px-2 py-2 rounded-md mt-2 cursor-pointer w-full"
       >
         {task.task}
         <IconButton onClick={() => deleteTaskHandler(task.task)}>
@@ -65,42 +77,26 @@ const TaskWrapper = ({
     );
   };
 
-  // Handle dragging
-  const handleDragStart = (event, task) => {
-    event.dataTransfer.setData("task", JSON.stringify(task));
-  };
-
-  // Handle dropping
-  const handleDrop = (event) => {
-    event.preventDefault();
-    const droppedTask = JSON.parse(event.dataTransfer.getData("task"));
-
-    // Update task category
-    setAllTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.task === droppedTask.task ? { ...task, category } : task
-      )
-    );
-  };
-
   const openModalHandler = (event) => {
     event.preventDefault();
     setOpenModal(true);
   };
+
   const closeModalHandler = (event) => {
     event.preventDefault();
     setOpenModal(false);
   };
+
   const taskTitleHandler = (event) => {
     event.preventDefault();
     setTaskTitle(event.target.value);
   };
+
   const taskSubmitHandler = (event) => {
     event.preventDefault();
-    console.log(taskTitle);
-
     if (!taskTitle) {
       setShowError(true);
+      return;
     }
     setShowError(false);
     setAllTasks([...allTasks, { task: taskTitle, category }]);
@@ -115,15 +111,13 @@ const TaskWrapper = ({
 
   return (
     <div
-      ref={drop}
+      ref={drop} // Make the category droppable
       style={{
-        backgroundColor: isOver ? "#f0f0f0" : backgroundColor,
+        backgroundColor: isOver ? "#f0f0f0" : backgroundColor, // Change background on hover
         opacity: "70%",
+        transition: "background-color 0.3s ease", // Smooth transition
       }}
-      // style={{ backgroundColor: backgroundColor, opacity: "70%" }}
       className="h-[300px] w-full max-w-[300px] bg-opacity-70 rounded-md px-3 py-3 overflow-auto"
-      // onDragOver={(e) => e.preventDefault()} // Allow dropping
-      // onDrop={handleDrop} // Handle drop event
     >
       <div
         style={{ backgroundColor: backgroundColor, opacity: "100%" }}
@@ -141,7 +135,9 @@ const TaskWrapper = ({
       </div>
       <div className="flex flex-col justify-center items-center gap-1 w-full">
         {filteredTasks.length > 0 &&
-          filteredTasks.map((task) => <TaskItem key={task.task} task={task} />)}
+          filteredTasks.map((task) => (
+            <TaskItem key={task.task} task={task} />
+          ))}
       </div>
       {openModal && (
         <CustomModal
