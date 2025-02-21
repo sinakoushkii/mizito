@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
 import { getEmptyImage } from "react-dnd-html5-backend";
+import { toPersianNumber } from "../utils/utils";
 
 
 
@@ -125,7 +126,7 @@ const TaskWrapper = ({
         className="px-2 py-1 rounded-md border-2"
       >
         <h3 className="text-white">
-          ({filteredTasks.length}) {title}
+          {title} ( {toPersianNumber(filteredTasks.length)} )
         </h3>
       </div>
       <div

@@ -30,7 +30,7 @@ const App = () => {
   return (
     <div>
       <TaskProvider>
-        <div className="w-full h-screen">
+        <div className="w-full h-full">
           <Navbar
             toggleSidebar={toggleSidebar}
             setNavbarHeight={setNavbarHeight}
@@ -43,7 +43,7 @@ const App = () => {
             />
           )}
 
-          <div className="flex flex-row-reverse items-center justify-end w-full h-full">
+          <div className="flex flex-row-reverse items-center justify-end w-full h-screen overflow-scroll">
             <Routes>
               <Route path="/" element={<Home marginTop={navbarHeight} />} />
               <Route path="/about" element={<About />} />

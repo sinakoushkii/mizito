@@ -62,8 +62,29 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const Navbar = ({ toggleSidebar,setNavbarHeight }) => {
-  const location = useLocation(); // Get the current location (route)
+// Check the current route and set the background color
+export const getNavbarBackground = () => {
+  const location = useLocation();
+  switch (location.pathname) {
+    case "/":
+      return "!bg-red-500";
+    case "/chat":
+      return "!bg-blue-500";
+    case "/projects":
+      return "!bg-blue-900";
+    case "/tasks":
+      return "!bg-green-600";
+    case "/letters":
+      return "!bg-orange-500";
+    case "/notes":
+      return "!bg-yellow-600";
+    default:
+      return "!bg-gray-500";
+  }
+};
+
+const Navbar = ({ toggleSidebar, setNavbarHeight }) => {
+  // Get the current location (route)
 
   // State initialization
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -78,26 +99,6 @@ const Navbar = ({ toggleSidebar,setNavbarHeight }) => {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  // Check the current route and set the background color
-  const getNavbarBackground = () => {
-    switch (location.pathname) {
-      case "/":
-        return "!bg-red-500";
-      case "/chat":
-        return "!bg-blue-500";
-      case "/projects":
-        return "!bg-blue-900";
-      case "/tasks":
-        return "!bg-green-600";
-      case "/letters":
-        return "!bg-orange-500";
-      case "/notes":
-        return "!bg-yellow-600";
-      default:
-        return "!bg-gray-500";
-    }
-  };
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -213,7 +214,7 @@ const Navbar = ({ toggleSidebar,setNavbarHeight }) => {
             {/* mizito */}
             <h2 className="text-2xl font-bold">
               <Link to="/" className="text-white !no-underline inline-block">
-                  ایریسا پرو
+                ایریسا پرو
               </Link>
             </h2>
 

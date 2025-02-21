@@ -3,6 +3,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import BasicSpeedDial from "../components/BasicSpeedDial";
+import { Box } from "@mui/system";
 
 const Notes = () => {
   const [isFocused, setIsFocused] = useState(false);
@@ -26,12 +28,12 @@ const Notes = () => {
 
   const noteBackgroundColors = [
     "white",
-    "#f5206e",
-    "#09b82f",
-    "royalblue",
-    "#e3d802",
-    "pink",
-    "gray",
+    "#ff8a80", //red
+    "#ccff90", //green
+    "#80d8ff", // blue
+    "#ffd180", // orange
+    "#a7ffeb", // light green
+    "#cfd8dc", // gray
   ];
 
   const noteTitleHandler = (event) => {
@@ -54,12 +56,11 @@ const Notes = () => {
     const updatedNotes = [...notes, note];
     setNotes(updatedNotes);
     setNote({ title: "", caption: "", background: "white" });
-    
   };
 
   //Remove note function
   const deleteNoteHandler = (index) => {
-    setIsFocused(false)
+    setIsFocused(false);
     const updatedNotes = notes.filter((_, i) => i !== index); // Remove clicked note
     setNotes(updatedNotes);
   };
@@ -125,7 +126,7 @@ const Notes = () => {
             variant="contained"
             color="primary"
             onClick={noteSubmitHandler}
-            sx={{marginTop:"2rem"}}
+            sx={{ marginTop: "2rem" }}
           >
             ایجاد
           </Button>
@@ -142,13 +143,18 @@ const Notes = () => {
             <h3 className="text-lg font-semibold mb-3">{n.title}</h3>
             <p className="text-sm text-gray-700">{n.caption}</p>
             {/* Delete Button */}
-            <IconButton
-              onClick={() => deleteNoteHandler(index)}
-              size="small"
-              sx={{ color: "black",marginTop:"1rem" }}
-            >
-              <DeleteIcon />
-            </IconButton>
+            <div className="flex items-center gap-2 mt-4 border-2 border-black">
+              <IconButton
+                onClick={() => deleteNoteHandler(index)}
+                size="small"
+                sx={{ color: "black", marginTop: "1rem" }}
+              >
+                <DeleteIcon />
+              </IconButton>
+              <Box>
+                <BasicSpeedDial />
+              </Box>
+            </div>
           </div>
         ))}
       </div>

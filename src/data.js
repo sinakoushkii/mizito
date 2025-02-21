@@ -13,11 +13,6 @@ import profile3 from './assets/icons/profile3.jpeg'
 import profile4 from './assets/icons/profile4.jpeg'
 
 
-export const toPersianNumber = (number) => {
-  const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-  return number.toString().replace(/\d/g, (digit) => persianDigits[digit]);
-};
-
 export const sidebarLinks = [
   {
     id: 1,

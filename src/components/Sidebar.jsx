@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { sidebarLinks, toPersianNumber } from "../data";
+import { sidebarLinks } from "../data";
 import { TaskContext } from "../context/TaskContext";
+import { toPersianNumber } from "../utils/utils";
 import Badge from "@mui/material/Badge";
+import Colleagues from "./Colleagues";
 
 const Sidebar = ({ isSidebarOpen, navbarHeight }) => {
   const location = useLocation();
@@ -14,7 +16,7 @@ const Sidebar = ({ isSidebarOpen, navbarHeight }) => {
     <div
       className={`mt-28 sm:mt-32 fixed top-[${navbarHeight}] right-0 ${
         isSidebarOpen ? "translate-x-0" : "translate-x-full"
-      } h-screen bg-white lg:static lg:block shadow-xl border w-[270px] px-4 py-2 transform transition-transform duration-300 z-20`}
+      } bg-white lg:static lg:block shadow-xl border w-[270px] px-4 py-2 transform transition-transform duration-300 z-20 h-full`}
     >
       <div className="flex flex-col items-start justify-center gap-2">
         {sidebarLinks.map((link) => (
@@ -36,6 +38,7 @@ const Sidebar = ({ isSidebarOpen, navbarHeight }) => {
             )}
           </Link>
         ))}
+        <Colleagues />
       </div>
     </div>
   );

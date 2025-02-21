@@ -1,16 +1,28 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Badge, Button, Typography } from "@mui/material";
 import CustomModal from "../components/CustomModal";
 import supportIcon from "../assets/icons/blackChat.png";
 import textIcon from "../assets/icons/text.png";
-import { colleagues, timeTable, toPersianNumber } from "../data";
+import { colleagues, timeTable } from "../data";
 import { TaskContext } from "../context/TaskContext";
 import Checkbox from "@mui/material/Checkbox";
+import profilePattern from "../assets/images/profilePattern.png";
+import profilePlaceholder from "../assets/images/profilePlaceholder.jpg";
+import { getPersianDate, toPersianNumber } from "../utils/utils";
+import Tooltip from "@mui/material/Tooltip";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Home = () => {
   const [open, setOpen] = useState(false);
+  const [notePending, setNotePending] = useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setNotePending(false);
+    }, 800);
+  }, []);
 
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -22,14 +34,43 @@ const Home = () => {
       (task) => task.task !== checkedTask.task
     );
     checkedTask.category = "done";
-    setAllTasks([...uncheckedTasks,checkedTask])
+    setAllTasks([...uncheckedTasks, checkedTask]);
   };
 
   return (
     <div className="w-full h-screen px-6 py-4 mt-32">
       <div className="flex flex-row-reverse items-center h-screen">
-        <div className="hidden md:block w-[300px] border-2 border-black h-full">
-          پروفایل و عکس
+        {/* profile */}
+        <div className="hidden md:flex flex-col items-center justify-start w-[300px] h-full">
+          <div className="relative w-full h-max">
+            <img
+              className="w-full"
+              src={profilePattern}
+              alt="profile-pattern"
+            />
+            <img
+              className="profile-placeholder w-1/2 rounded-lg shadow-xl"
+              src={profilePlaceholder}
+            />
+          </div>
+          <div className="text-center">
+            <p className="text-center text-md font-bold mb-3">سینا کوشکی</p>
+            <span className="font-bold text-xs bg-gray-300 text-cyan-800 rounded-full px-2 py-1">
+              {" "}
+              روز بخیر: {getPersianDate()}
+            </span>
+          </div>
+          <div className="border border-b-0 border-x-0 mt-4 py-3 px-2 w-full cursor-pointer">
+            <p>سایر میز کارهای شما:</p>
+            <div className="flex flex-col place-content-center w-full border-2 border-dashed rounded-xl mx-3 my-3 h-[110px]">
+              <p className="text-[40px] text-cyan-600 text-center mb-0 p-0">
+                +
+              </p>
+              <p className="text[13px] text-cyan-600 text-center mt-0">
+                ایجاد میزکار جدید
+              </p>
+            </div>
+          </div>
         </div>
 
         <div className="grow h-full">
@@ -74,14 +115,16 @@ const Home = () => {
             <div className="flex items-center justify-start gap-2">
               {colleagues.map((colleague) => {
                 return (
-                  <img
-                    className="rounded-full object-cover cursor-pointer"
-                    key={colleague.id}
-                    src={colleague.profilePath}
-                    width={30}
-                    height={30}
-                    alt={colleague.name}
-                  />
+                  <Tooltip title={colleague.name}>
+                    <img
+                      className="rounded-full object-cover cursor-pointer"
+                      key={colleague.id}
+                      src={colleague.profilePath}
+                      width={30}
+                      height={30}
+                      alt={colleague.name}
+                    />
+                  </Tooltip>
                 );
               })}
             </div>
@@ -89,13 +132,23 @@ const Home = () => {
           {/* task table */}
           <div className="flex flex-col xl:flex-row items-center justify-center w-full gap-4 border-t-2 pt-4">
             {/* my tasks */}
-            <div className="w-full border rounded-t-xl grow min-h-[300px]">
+            <div className="relative w-full border rounded-t-xl grow min-h-[300px]">
               <div className="text-center bg-green-600 rounded-t-xl py-1 w-full">
                 <span className="text-center text-[14px] text-white">
                   کارهای من ({toPersianNumber(filteredTask.length)})
                 </span>
               </div>
-              {filteredTask.length > 0 ? (
+              {notePending ? (
+                <CircularProgress
+                  sx={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    display: "flex",
+                    transform:"translate(-50%,-50%)"
+                  }}
+                />
+              ) : (
                 filteredTask.map((task) => {
                   return (
                     <div
@@ -111,11 +164,10 @@ const Home = () => {
                     </div>
                   );
                 })
-              ) : (
-                <p className="text-gray-500 text-center my-4">
-                  تسکی برای انجام ندارید
-                </p>
               )}
+              {!notePending && !filteredTask.length > 0 ? <p className="text-gray-500 text-center my-4">
+                  تسکی برای انجام ندارید
+                </p> : null}
             </div>
             {/* others work  */}
             <div className="w-full border rounded-t-xl grow min-h-[300px]">
