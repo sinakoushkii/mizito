@@ -8,12 +8,13 @@ const Sidebar = ({ isSidebarOpen, navbarHeight }) => {
   const location = useLocation();
   const { allTasks } = useContext(TaskContext);
 
+  const filteredTask = allTasks.filter((task) => task.category !== "done");
 
   return (
     <div
       className={`mt-28 sm:mt-32 fixed top-[${navbarHeight}] right-0 ${
         isSidebarOpen ? "translate-x-0" : "translate-x-full"
-      } h-screen bg-white md:static md:block shadow-xl border w-[270px] px-4 py-2 transform transition-transform duration-300 z-20`}
+      } h-screen bg-white lg:static lg:block shadow-xl border w-[270px] px-4 py-2 transform transition-transform duration-300 z-20`}
     >
       <div className="flex flex-col items-start justify-center gap-2">
         {sidebarLinks.map((link) => (
@@ -26,10 +27,10 @@ const Sidebar = ({ isSidebarOpen, navbarHeight }) => {
           >
             <img height={20} width={20} src={link.iconPath} alt={link.title} />
             <span className="text-[15px] ml-3">{link.title}</span>
-       
+
             {link.title === "پروژه ها" && (
               <Badge
-                badgeContent={toPersianNumber(allTasks.length)}
+                badgeContent={toPersianNumber(filteredTask.length)}
                 color="primary"
               ></Badge>
             )}

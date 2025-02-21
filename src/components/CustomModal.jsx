@@ -10,11 +10,11 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 300,
+  width: 400,
   bgcolor: "background.paper",
   borderRadius: "8px",
   boxShadow: 24,
-  padding:"20px 30px"
+  padding:"20px 20px"
 };
 
 const CustomModal = ({ children, title, open, closeModal }) => {

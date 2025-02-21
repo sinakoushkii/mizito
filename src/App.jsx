@@ -38,7 +38,7 @@ const App = () => {
           {/* Overlay Background */}
           {isSidebarOpen && (
             <div
-              className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm md:hidden z-10"
+              className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm lg:hidden z-10"
               onClick={() => setIsSidebarOpen(false)}
             />
           )}

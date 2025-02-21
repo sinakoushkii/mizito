@@ -17,6 +17,14 @@ const Home = () => {
   const { allTasks, setAllTasks } = useContext(TaskContext);
   const filteredTask = allTasks.filter((task) => task.category !== "done");
 
+  const taskCheckHandler = (checkedTask) => {
+    const uncheckedTasks = allTasks.filter(
+      (task) => task.task !== checkedTask.task
+    );
+    checkedTask.category = "done";
+    setAllTasks([...uncheckedTasks,checkedTask])
+  };
+
   return (
     <div className="w-full h-screen px-6 py-4 mt-32">
       <div className="flex flex-row-reverse items-center h-screen">
@@ -79,7 +87,8 @@ const Home = () => {
             </div>
           </div>
           {/* task table */}
-          <div className="flex flex-col lg:flex-row items-center justify-center w-full gap-4 border-t-2 pt-4">
+          <div className="flex flex-col xl:flex-row items-center justify-center w-full gap-4 border-t-2 pt-4">
+            {/* my tasks */}
             <div className="w-full border rounded-t-xl grow min-h-[300px]">
               <div className="text-center bg-green-600 rounded-t-xl py-1 w-full">
                 <span className="text-center text-[14px] text-white">
@@ -94,6 +103,7 @@ const Home = () => {
                       className="flex items-center gap-1 border border-r-0 border-l-0 w-full px-2 py-0"
                     >
                       <Checkbox
+                        onClick={() => taskCheckHandler(task)}
                         sx={{ "& .MuiSvgIcon-root": { fontSize: 20 } }}
                         {...label}
                       />
