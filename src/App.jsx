@@ -43,7 +43,7 @@ const App = () => {
             />
           )}
 
-          <div className="flex flex-row-reverse items-start justify-end w-full h-full border-4 border-green-700">
+          <div className="flex flex-row-reverse items-start justify-start w-full h-full border-4 border-green-700">
             <Routes>
               <Route path="/" element={<Home marginTop={navbarHeight} />} />
               <Route path="/about" element={<About />} />
