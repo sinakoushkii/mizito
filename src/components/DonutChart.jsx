@@ -26,7 +26,7 @@ export const DonutChart = () => {
   });
 
   return (
-    <div className="w-full h-[100px]" id="chart">
+    <div className="w-full h-[100px] pb-10" id="chart">
       <p
         className={`w-full px-2 py-1 ${getNavbarBackground()} text-white text-[13px]`}
       >
