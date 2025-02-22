@@ -66,7 +66,7 @@ const Notes = () => {
   };
 
   return (
-    <div className="w-full h-full mt-32 px-4 pb-8 overflow-auto">
+    <div className="w-full h-full md:pt-32 px-4 pb-8 overflow-auto border-4 border-red-500">
       <div
         style={{ backgroundColor: note.background ? note.background : "white" }}
         className={`flex flex-col items-center justify-start mx-auto border max-w-[700px] mt-12 shadow-lg rounded-lg transition-all duration-300 h-16 focus-within:min-h-[320px]  ${
@@ -151,9 +151,9 @@ const Notes = () => {
               >
                 <DeleteIcon />
               </IconButton>
-              <Box>
+              {/* <Box>
                 <BasicSpeedDial />
-              </Box>
+              </Box> */}
             </div>
           </div>
         ))}
