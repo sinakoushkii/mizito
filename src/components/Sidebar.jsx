@@ -9,15 +9,14 @@ import Colleagues from "./Colleagues";
 const Sidebar = ({ isSidebarOpen, navbarHeight }) => {
   const location = useLocation();
   const { allTasks } = useContext(TaskContext);
-  
+
 
   const filteredTask = allTasks.filter((task) => task.category !== "done");
   console.log('navbar height '+navbarHeight)
+
   return (
     <div
-      className={`fixed top-[${navbarHeight}px] right-0 ${
-        isSidebarOpen ? "translate-x-0" : "translate-x-full"
-      } bg-white lg:static lg:block shadow-xl w-[270px] px-1 py-2 transform transition-transform duration-300 z-20 h-full border-4 border-blue-600`}
+      className={`fixed top-[${navbarHeight}px] right-0 ${ isSidebarOpen ? "translate-x-0" : "translate-x-full"} bg-white lg:static lg:block shadow-xl w-[270px] px-1 py-2 transform transition-transform duration-300 z-20 h-screen border-4 border-blue-600`}
     >
       <div className="flex flex-col items-start justify-start gap-2 h-full border-2 border-blue-500 w-full">
         {sidebarLinks.map((link) => (
