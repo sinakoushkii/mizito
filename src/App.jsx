@@ -30,7 +30,7 @@ const App = () => {
   return (
     <div>
       <TaskProvider>
-        <div className={`w-full h-screen border-8 border-amber-600 pt-16 overflow-hidden`}>
+        <div className={`w-full h-screen border-8 border-amber-600 pt-[54px] overflow-hidden`}>
           <Navbar
             toggleSidebar={toggleSidebar}
             setNavbarHeight={setNavbarHeight}
