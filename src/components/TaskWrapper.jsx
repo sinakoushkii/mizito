@@ -119,7 +119,7 @@ const TaskWrapper = ({
         // opacity: "70%",
         transition: "background-color 0.3s ease", // Smooth transition
       }}
-      className="w-full min-h-[500px] md:min-h-[400px] max-w-[300px] bg-opacity-70 rounded-md px-3 py-3 overflow-auto"
+      className="w-full min-h-[500px] md:min-h-[400px] max-w-[400px] bg-opacity-70 rounded-md px-6 md:px-3 py-3 overflow-auto"
     >
       <div
         style={{ backgroundColor: backgroundColor, opacity: "100%" }}

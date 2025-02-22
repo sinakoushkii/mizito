@@ -143,7 +143,7 @@ const Notes = () => {
             <h3 className="text-lg font-semibold mb-3">{n.title}</h3>
             <p className="text-sm text-gray-700">{n.caption}</p>
             {/* Delete Button */}
-            <div className="flex items-center gap-2 mt-4 border-2 border-black">
+            <div className="flex items-center gap-2 mt-4">
               <IconButton
                 onClick={() => deleteNoteHandler(index)}
                 size="small"

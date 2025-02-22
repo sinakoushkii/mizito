@@ -38,7 +38,7 @@ const Home = () => {
   };
 
   return (
-    <div className="w-full h-screen px-6 py-4 border-4 border-purple-600 overflow-y-scroll">
+    <div className="w-full h-screen px-6 py-4 overflow-y-scroll">
       <div className="flex flex-row-reverse items-center h-screen">
         {/* profile */}
         <div className="hidden md:flex flex-col items-center justify-start w-[300px] h-full">
@@ -75,7 +75,7 @@ const Home = () => {
 
         <div className="grow h-full">
           {/* your table */}
-          <div className="flex items-center justify-between w-full">
+          <div className="flex items-center justify-between w-full pt-4">
             <h1 className="text-xl sm:text-3xl font-bold">میز کار شما</h1>
             <div className="flex items-center justify-center gap-3">
               <span
@@ -132,7 +132,7 @@ const Home = () => {
           {/* task table */}
           <div className="flex flex-col xl:flex-row items-center justify-center w-full gap-4 border-t-2 pt-4">
             {/* my tasks */}
-            <div className="relative w-full border rounded-t-xl grow min-h-[300px]">
+            <div className="relative w-full border rounded-t-xl grow h-[300px] max-h-[300px] overflow-scroll">
               <div className="text-center bg-green-600 rounded-t-xl py-1 w-full">
                 <span className="text-center text-[14px] text-white">
                   کارهای من ({toPersianNumber(filteredTask.length)})
@@ -170,163 +170,7 @@ const Home = () => {
                 </p> : null}
             </div>
             {/* others work  */}
-            <div className="w-full border rounded-t-xl grow min-h-[300px]">
-              <div className="text-center bg-red-500 rounded-t-xl py-1 w-full">
-                <span className="text-center text-[14px] text-white">
-                  پیگیری از دیگران ({toPersianNumber(0)})
-                </span>
-              </div>
-              <p className="text-gray-500 text-center my-4">
-                کاری برای پیگیری ندارید
-              </p>
-            </div>
-          </div>
-          {/* task table */}
-          <div className="flex flex-col xl:flex-row items-center justify-center w-full gap-4 border-t-2 pt-4">
-            {/* my tasks */}
-            <div className="relative w-full border rounded-t-xl grow min-h-[300px]">
-              <div className="text-center bg-green-600 rounded-t-xl py-1 w-full">
-                <span className="text-center text-[14px] text-white">
-                  کارهای من ({toPersianNumber(filteredTask.length)})
-                </span>
-              </div>
-              {notePending ? (
-                <CircularProgress
-                  sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    display: "flex",
-                    transform:"translate(-50%,-50%)"
-                  }}
-                />
-              ) : (
-                filteredTask.map((task) => {
-                  return (
-                    <div
-                      key={task.task}
-                      className="flex items-center gap-1 border border-r-0 border-l-0 w-full px-2 py-0"
-                    >
-                      <Checkbox
-                        onClick={() => taskCheckHandler(task)}
-                        sx={{ "& .MuiSvgIcon-root": { fontSize: 20 } }}
-                        {...label}
-                      />
-                      <p className="text-[14px]">{task.task}</p>
-                    </div>
-                  );
-                })
-              )}
-              {!notePending && !filteredTask.length > 0 ? <p className="text-gray-500 text-center my-4">
-                  تسکی برای انجام ندارید
-                </p> : null}
-            </div>
-            {/* others work  */}
-            <div className="w-full border rounded-t-xl grow min-h-[300px]">
-              <div className="text-center bg-red-500 rounded-t-xl py-1 w-full">
-                <span className="text-center text-[14px] text-white">
-                  پیگیری از دیگران ({toPersianNumber(0)})
-                </span>
-              </div>
-              <p className="text-gray-500 text-center my-4">
-                کاری برای پیگیری ندارید
-              </p>
-            </div>
-          </div>
-          {/* task table */}
-          <div className="flex flex-col xl:flex-row items-center justify-center w-full gap-4 border-t-2 pt-4">
-            {/* my tasks */}
-            <div className="relative w-full border rounded-t-xl grow min-h-[300px]">
-              <div className="text-center bg-green-600 rounded-t-xl py-1 w-full">
-                <span className="text-center text-[14px] text-white">
-                  کارهای من ({toPersianNumber(filteredTask.length)})
-                </span>
-              </div>
-              {notePending ? (
-                <CircularProgress
-                  sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    display: "flex",
-                    transform:"translate(-50%,-50%)"
-                  }}
-                />
-              ) : (
-                filteredTask.map((task) => {
-                  return (
-                    <div
-                      key={task.task}
-                      className="flex items-center gap-1 border border-r-0 border-l-0 w-full px-2 py-0"
-                    >
-                      <Checkbox
-                        onClick={() => taskCheckHandler(task)}
-                        sx={{ "& .MuiSvgIcon-root": { fontSize: 20 } }}
-                        {...label}
-                      />
-                      <p className="text-[14px]">{task.task}</p>
-                    </div>
-                  );
-                })
-              )}
-              {!notePending && !filteredTask.length > 0 ? <p className="text-gray-500 text-center my-4">
-                  تسکی برای انجام ندارید
-                </p> : null}
-            </div>
-            {/* others work  */}
-            <div className="w-full border rounded-t-xl grow min-h-[300px]">
-              <div className="text-center bg-red-500 rounded-t-xl py-1 w-full">
-                <span className="text-center text-[14px] text-white">
-                  پیگیری از دیگران ({toPersianNumber(0)})
-                </span>
-              </div>
-              <p className="text-gray-500 text-center my-4">
-                کاری برای پیگیری ندارید
-              </p>
-            </div>
-          </div>
-          {/* task table */}
-          <div className="flex flex-col xl:flex-row items-center justify-center w-full gap-4 border-t-2 pt-4">
-            {/* my tasks */}
-            <div className="relative w-full border rounded-t-xl grow min-h-[300px]">
-              <div className="text-center bg-green-600 rounded-t-xl py-1 w-full">
-                <span className="text-center text-[14px] text-white">
-                  کارهای من ({toPersianNumber(filteredTask.length)})
-                </span>
-              </div>
-              {notePending ? (
-                <CircularProgress
-                  sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    display: "flex",
-                    transform:"translate(-50%,-50%)"
-                  }}
-                />
-              ) : (
-                filteredTask.map((task) => {
-                  return (
-                    <div
-                      key={task.task}
-                      className="flex items-center gap-1 border border-r-0 border-l-0 w-full px-2 py-0"
-                    >
-                      <Checkbox
-                        onClick={() => taskCheckHandler(task)}
-                        sx={{ "& .MuiSvgIcon-root": { fontSize: 20 } }}
-                        {...label}
-                      />
-                      <p className="text-[14px]">{task.task}</p>
-                    </div>
-                  );
-                })
-              )}
-              {!notePending && !filteredTask.length > 0 ? <p className="text-gray-500 text-center my-4">
-                  تسکی برای انجام ندارید
-                </p> : null}
-            </div>
-            {/* others work  */}
-            <div className="w-full border rounded-t-xl grow min-h-[300px]">
+            <div className="w-full border rounded-t-xl grow h-[300px] max-h-[300px] overflow-scroll">
               <div className="text-center bg-red-500 rounded-t-xl py-1 w-full">
                 <span className="text-center text-[14px] text-white">
                   پیگیری از دیگران ({toPersianNumber(0)})
