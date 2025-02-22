@@ -183,7 +183,7 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="w-full">
+          <div className="w-full my-10">
             <AreaChart />
           </div>
         </div>

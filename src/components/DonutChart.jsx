@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ReactApexChart from "react-apexcharts";
+import { getNavbarBackground } from "./Navbar";
 
 export const DonutChart = () => {
   const [state, setState] = useState({
@@ -25,7 +26,12 @@ export const DonutChart = () => {
   });
 
   return (
-    <div id="chart">
+    <div className="w-full" id="chart">
+      <p
+        className={`w-full px-2 py-1 ${getNavbarBackground()} text-white text-[13px]`}
+      >
+        میزان فعالیت شما
+      </p>
       <ReactApexChart
         options={state.options}
         series={state.series}
