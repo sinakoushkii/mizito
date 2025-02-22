@@ -9,6 +9,7 @@ import Colleagues from "./Colleagues";
 const Sidebar = ({ isSidebarOpen, navbarHeight }) => {
   const location = useLocation();
   const { allTasks } = useContext(TaskContext);
+  
 
   const filteredTask = allTasks.filter((task) => task.category !== "done");
   console.log('navbar height '+navbarHeight)
