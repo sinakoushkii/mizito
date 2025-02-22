@@ -16,7 +16,7 @@ const Projects = () => {
 
   return (
     <DndProvider backend={isTouchDevice() ? TouchBackend : HTML5Backend}>
-      <div className="w-full h-full px-4 pb-8 overflow-auto border-4 border-blue-600">
+      <div className="w-full h-full px-4 pb-8 overflow-auto">
         <CustomDragLayer /> {/* Add this line */}
         <div className="flex flex-col justify-start items-center md:flex-row md:items-start md:justify-center gap-4 mt-6 py-6 overflow-scroll h-full">
           <TaskWrapper

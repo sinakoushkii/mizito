@@ -5,6 +5,7 @@ import { TaskContext } from "../context/TaskContext";
 import { toPersianNumber } from "../utils/utils";
 import Badge from "@mui/material/Badge";
 import Colleagues from "./Colleagues";
+import { DonutChart } from "./DonutChart";
 
 const Sidebar = ({ isSidebarOpen, navbarHeight }) => {
   const location = useLocation();
@@ -39,6 +40,7 @@ const Sidebar = ({ isSidebarOpen, navbarHeight }) => {
           </Link>
         ))}
         <Colleagues />
+        <DonutChart />
       </div>
     </div>
   );

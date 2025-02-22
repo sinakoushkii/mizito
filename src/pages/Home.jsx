@@ -11,6 +11,7 @@ import profilePlaceholder from "../assets/images/profilePlaceholder.jpg";
 import { getPersianDate, toPersianNumber } from "../utils/utils";
 import Tooltip from "@mui/material/Tooltip";
 import CircularProgress from "@mui/material/CircularProgress";
+import { AreaChart } from "../components/AreaChart";
 
 const Home = () => {
   const [open, setOpen] = useState(false);
@@ -180,6 +181,10 @@ const Home = () => {
                 کاری برای پیگیری ندارید
               </p>
             </div>
+          </div>
+
+          <div className="w-full">
+            <AreaChart />
           </div>
         </div>
       </div>
