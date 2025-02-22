@@ -26,7 +26,7 @@ export const DonutChart = () => {
   });
 
   return (
-    <div className="w-full" id="chart">
+    <div className="w-full h-[100px]" id="chart">
       <p
         className={`w-full px-2 py-1 ${getNavbarBackground()} text-white text-[13px]`}
       >
@@ -36,7 +36,7 @@ export const DonutChart = () => {
         options={state.options}
         series={state.series}
         type="donut"
-        height={400}
+        height={250}
       />
     </div>
   );
