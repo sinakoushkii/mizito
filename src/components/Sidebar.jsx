@@ -17,7 +17,7 @@ const Sidebar = ({ isSidebarOpen, navbarHeight }) => {
 
   return (
     <div
-      className={`fixed top-[${navbarHeight}px] right-0 ${ isSidebarOpen ? "translate-x-0" : "translate-x-full"} bg-white lg:static lg:block shadow-xl w-[270px] px-1 py-2 transform transition-transform duration-300 z-20 h-screen border-2`}
+      className={`fixed top-[${navbarHeight}px] right-0 ${ isSidebarOpen ? "translate-x-0" : "translate-x-full"} bg-white lg:static lg:block shadow-xl w-[270px] px-1 py-2 transform transition-transform duration-300 z-20 h-screen border-2 overflow-scroll`}
     >
       <div className="flex flex-col items-start justify-start gap-2 h-full w-full py-4 overflow-scroll">
         {sidebarLinks.map((link) => (
