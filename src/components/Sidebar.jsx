@@ -17,9 +17,9 @@ const Sidebar = ({ isSidebarOpen, navbarHeight }) => {
 
   return (
     <div
-      className={`fixed top-[${navbarHeight}px] right-0 ${ isSidebarOpen ? "translate-x-0" : "translate-x-full"} bg-white lg:static lg:block shadow-xl w-[270px] px-1 py-2 transform transition-transform duration-300 z-20 h-screen border-2 overflow-scroll`}
+      className={`fixed top-[${navbarHeight}px] right-0 ${ isSidebarOpen ? "translate-x-0" : "translate-x-full"} bg-white lg:static lg:block shadow-xl w-[270px] px-1 py-2 transform transition-transform duration-300 z-20 h-screen border-2`}
     >
-      <div className="flex flex-col items-start justify-start gap-2 h-full w-full py-4 overflow-scroll">
+      <div className="flex flex-col items-start justify-start gap-2 h-full w-full pt-4 pb-12 overflow-scroll">
         {sidebarLinks.map((link) => (
           <Link
             className={`flex items-center gap-2 text-lg text-gray-700 hover:bg-gray-300 w-full ${
@@ -41,6 +41,7 @@ const Sidebar = ({ isSidebarOpen, navbarHeight }) => {
         ))}
         <Colleagues />
         <DonutChart />
+
         <div className="grow">
 
         </div>
