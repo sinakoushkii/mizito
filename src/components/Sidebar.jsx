@@ -41,6 +41,9 @@ const Sidebar = ({ isSidebarOpen, navbarHeight }) => {
         ))}
         <Colleagues />
         <DonutChart />
+        <div className="grow">
+
+        </div>
       </div>
     </div>
   );

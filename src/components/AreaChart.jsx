@@ -5,11 +5,11 @@ export const AreaChart = () => {
   const [state, setState] = useState({
     series: [
       {
-        name: "series1",
+        name: "شهریور",
         data: [31, 40, 28, 51, 42, 109, 100],
       },
       {
-        name: "series2",
+        name: "مهر",
         data: [11, 32, 45, 32, 34, 52, 41],
       },
     ],
@@ -45,7 +45,7 @@ export const AreaChart = () => {
   });
 
   return (
-    <div className="w-full pb-8" id="chart">
+    <div className="w-full pb-14 mb-8" id="chart">
       <ReactApexChart
         options={state.options}
         series={state.series}
